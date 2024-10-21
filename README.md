@@ -99,9 +99,8 @@ Todo List
 • Використовуйте семантичні HTML елементи та дотримуйтесь сучасних стандартів розмітки.
 
 Технічні деталі:
+ * Використовуйте Vue 3 через CDN:
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    •	Використовуйте Vue 3 через CDN:
-
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 Масив рандомних todo знаходиться в data/todos.json
