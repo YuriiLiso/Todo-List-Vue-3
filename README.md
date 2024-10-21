@@ -104,4 +104,4 @@ Todo List
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-Масив рандомних завдання прикріплено до дз.
+Масив рандомних todo знаходиться в data/todos.json
