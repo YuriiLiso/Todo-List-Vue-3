@@ -1,13 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo List</title>
-</head>
-<body>
-  <h1>
-    Todo List on Vue
-  </h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 1ITSchool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/scss/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <!-- MAIN SCREEN BLOCK================================================================ -->
+      <div v-show="showMainScreen" class="mainScreen">
+        <div class="topIsland">
+          <div class="topIsland__time">21:31</div>
+          <div class="topIsland__icons">
+            <img src="./img/Cellular Connection.svg" alt="Cellular" />
+            <img src="./img/Wifi.svg" alt="Wifi" />
+            <img src="./img/Battery.svg" alt="Battery" />
+          </div>
+        </div>
+        <div class="background">
+          <img src="./img/Background1.png" alt="Background1" />
+          <img src="./img/Background2.png" alt="Background2" />
+          <img src="./img/Background3.png" alt="Background3" />
+          <img src="./img/logoWhite.png" alt="logoWhite" class="logoWhite" />
+        </div>
+        <div class="screen">
+          <h1>Make successful your day</h1>
+          <span>Make small somethings to get big gift in your life</span>
+        </div>
+        <div class="buttonStart">
+          <button @click="startApp">Start</button>
+        </div>
+        <div class="footer"></div>
+      </div>
+      <!-- TASK LIST BLOCK================================================================ -->
+      <div v-show="task_container" class="taskList">
+        <div class="taskList_topIsland">
+          <div class="topIsland__time">21:31</div>
+          <div class="topIsland__icons">
+            <img src="./img/Cellular Connection.svg" alt="Cellular" />
+            <img src="./img/Wifi.svg" alt="Wifi" />
+            <img src="./img/Battery.svg" alt="Battery" />
+          </div>
+        </div>
+        <div class="taskList__tittle-block">
+          <img @click="backToStart" src="./img/arrowLeft.svg" alt="Arrow" />
+          <button @click="backToStart" class="backButton">Back</button>
+          <h2 class="title">Task</h2>
+        </div>
+        <div class="task_container">
+          <ul class="tabs_block">
+            <li
+              v-for="item in tabs"
+              :key="item"
+              @click="selectTab(item)"
+              :class="{selected_item: selectedTab === item}"
+              class="tab"
+            >
+              {{item}}
+              <div class="counter">
+                <span v-show="item === 'All tasks'"> {{ totalTasks }}</span>
+                <span v-show="item === 'Open'"> {{ openTasksCount }}</span>
+                <span v-show="item === 'Closed'">
+                  {{ completedTasksCount }}</span
+                >
+              </div>
+            </li>
+          </ul>
+          <div class="task_items">
+            <ul class="task_items__toDoo">
+              <li
+                v-for="item in filterTasks"
+                :key="item.id"
+                class="outfit"
+                :class="{selected: item.isCompleted}"
+                @click="showEditTask(item)"
+              >
+                <div class="container_tittle-button">
+                  <h2 class="outfit-tittle">{{item.title}}</h2>
+                  <div class="circle" @click.stop="taskSelected(item)">✓</div>
+                </div>
+                <span class="outfit-tittle-span1"> {{item.description}} </span>
+                <span class="outfit-tittle-span2"> {{item.dateEnd}} </span>
+              </li>
+            </ul>
+          </div>
+          <div class="allert" v-show="allert">
+            <div class="allert__info">
+              <span class="allert__info_text">Task Deleted</span>
+              <img src="./img/closeButton.svg" alt="button_X" @click="closeAllert">
+            </div>
+          </div>
+          <div class="task_container__imgPlus">
+            <img @click="plusTask" src="./img/PlusTask.svg" alt="PlusTask" />
+          </div>
+          <div class="footer"></div>
+        </div>
+      </div>
+      <!-- ADD TASK BLOCK================================================================ -->
+      <div v-show="addTask" class="addTask">
+        <div class="taskList_topIsland">
+          <div class="topIsland__time">21:31</div>
+          <div class="topIsland__icons">
+            <img src="./img/Cellular Connection.svg" alt="Cellular" />
+            <img src="./img/Wifi.svg" alt="Wifi" />
+            <img src="./img/Battery.svg" alt="Battery" />
+          </div>
+        </div>
+        <div class="addTask__title-block">
+          <img
+            class="addTask__title-block--img"
+            @click="backToTasks"
+            src="./img/arrowLeft.svg"
+            alt="Arrow"
+          />
+          <button class="addTask__title-block--button" @click="backToTasks">
+            Back
+          </button>
+          <h2 class="addTask__title-block-title">Add task</h2>
+        </div>
+        <img class="logoBlue" src="./img/logoBlue.svg" alt="logoblue" />
+        <div class="addTask__form">
+          <form @submit.prevent="pushTask" class="form">
+            <div class="form__group">
+              <label class="form__group_title"
+                >Title <span class="important">*</span></label
+              >
+              <input
+                class="form__group_input"
+                v-model="createForm.title"
+                type="text"
+                placeholder="Enter title"
+                v-model="createForm.title"
+                :class="{error: error.title }"
+              />
+              <label class="form__group_title title_description"
+                >Description <span class="important">*</span></label
+              >
+              <textarea
+                class="form__group_input input2"
+                placeholder="Enter description"
+                maxlength="500"
+                v-model="createForm.description"
+                :class="{error: error.description }"
+              ></textarea>
+              <span class="text_area">0/500 max characters</span>
+              <label class="form__group_title title_data"
+                >Date end<span class="important">*</span></label
+              >
+              <vue-date-picker
+                placeholder="Choose data"
+                class="datepicker"
+                v-model="createForm.dateEnd"
+                :class="{error: error.dateEnd }"
+              ></vue-date-picker>
+            </div>
+            <div class="form__buttons">
+              <button @submit.prevent="pushTask" type="submit" class="form__buttons--button submit">
+                Create
+              </button>
+              <button type="button" class="form__buttons--button cancel" @click="backToTasks">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <div class="footer"></div>
+      </div>
+      <!-- EDITING TASK BLOCK================================================================ -->
+      <div v-show="editTask" class="editTask">
+        <div class="taskList_topIsland">
+          <div class="topIsland__time">21:31</div>
+          <div class="topIsland__icons">
+            <img src="./img/Cellular Connection.svg" alt="Cellular" />
+            <img src="./img/Wifi.svg" alt="Wifi" />
+            <img src="./img/Battery.svg" alt="Battery" />
+          </div>
+        </div>
+        <div class="editTask__title-block">
+          <img class="editTask__title-block--img" @click="backToTasks" src="./img/arrowLeft.svg" alt="Arrow"/>
+          <button @click="backToTasks" class="editTask__title-block--button">
+            Back
+          </button>
+          <h2 class="editTask__title-block-title">Edit task</h2>
+        </div>
+        <img class="logoBlue" src="./img/logoBlue.svg" alt="logoblue" />
+        <div class="editTask__form">
+          <form @submit.prevent="sendForm" class="form">
+            <div class="form__group">
+              <label class="form__group_title"
+                >Title <span class="important">*</span></label
+              >
+              <input
+                class="form__group_input"
+                v-model="createForm.title"
+                type="text"
+                placeholder="Enter title"
+                :class="{error: error.title }"
+              />
+              <label class="form__group_title title_description"
+                >Description <span class="important">*</span></label
+              >
+              <textarea
+                class="form__group_input input2"
+                placeholder="Enter description"
+                maxlength="500"
+                v-model="createForm.description"
+                :class="{error: error.description }"
+              ></textarea>
+              <span class="text_area">0/500 max characters</span>
+              <label class="form__group_title title_data"
+                >Date end<span class="important">*</span></label
+              >
+              <vue-date-picker
+                placeholder="Choose data"
+                class="datepicker"
+                v-model="createForm.dateEnd"
+                :value="tasks.dateEnd"
+                :class="{error: error.dateEnd }"
+              ></vue-date-picker>
+            </div>
+            <div class="form__buttons">
+              <button type="submit" class="form__buttons--button submit">
+                Done
+              </button>
+              <button class="form__buttons--button cancel delete" @click="deleteTask">Delete</button>
+            </div>
+          </form>
+        </div>
+        <div class="footer"></div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@latest"></script>
+    <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
