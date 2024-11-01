@@ -364,6 +364,10 @@ export default {
 <style>
 /* Стилі для початкового екрану */
 
+* {
+    font-family: 'Inter', sans-serif;
+}
+
 html {
   width: 393px;
   height: 852px;
