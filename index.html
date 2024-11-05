@@ -19,7 +19,9 @@
           <button class="close-btn" @click="hideNotification">&times;</button>
         </div>
         <div class="phone__header" :class="{ white: chosenScreen !== 'start'}">
-          <div class="phone__time">9:41</div>
+          <div class="phone__time">
+            {{currentTime}}
+          </div>
           <div class="phone__utils">
             <img src="./src/images/connection.svg" alt="">
             <img src="./src/images/wifi.svg" alt="">
@@ -69,8 +71,8 @@
               </ul>
 
               <ul class="todos__list">
-                <li v-for="todo in fileteredTodos" :key="todo.id" class="todos__item" @click="selectTodo(todo)">
-                  <div>
+                <li v-for="todo in fileteredTodos" :key="todo.id" class="todos__item">
+                  <div @click="selectTodo(todo)">
                     <div class="todos__title">
                       {{todo.title}}
                     </div>

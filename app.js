@@ -107,6 +107,7 @@ createApp({
       },
       selectedTodo: null,
       isShowNotification: false,
+      currentTime: null,
     };
   },
   methods: {
@@ -115,9 +116,9 @@ createApp({
       this.selectedTodo = todo;
     },
     addTodo() {
-      this.todos.push(this.newTodo);
+      this.todos.push({ ...this.newTodo, id: this.todos.length + 1 });
       this.goToTodos();
-      setDefaultNewTodo();
+      this.setDefaultNewTodo();
     },
     editTodo() {
       const index = this.todos.findIndex(
@@ -144,7 +145,7 @@ createApp({
 
     cancelTodo() {
       this.chosenScreen = 'todos';
-      setDefaultNewTodo();
+      this.setDefaultNewTodo();
     },
     selectTab(tab) {
       this.selectedTab = tab.id;
@@ -170,6 +171,12 @@ createApp({
         isCompleted: false,
         dateEnd: '',
       };
+    },
+
+    startTitme() {
+      const localTime = new Date().toLocaleTimeString();
+      // this.currentTime = `${localTime.slice(0, -3)}`;
+      this.currentTime = `${localTime}`;
     },
   },
 
@@ -207,5 +214,12 @@ createApp({
         return 'Task';
       }
     },
+  },
+
+  mounted() {
+    this.startTitme();
+    setInterval(() => {
+      this.startTitme();
+    }, 1000);
   },
 }).mount('#app');
