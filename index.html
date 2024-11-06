@@ -1,13 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo List</title>
-</head>
-<body>
-  <h1>
-    Todo List on Vue
-  </h1>
-</body>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css">
+    <link rel="stylesheet" href="./src/styles/main.css">
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="phone">
+        <div v-if="isShowNotification" class="delete_notification">
+          <span class="message">Task Deleted</span>
+          <button class="close-btn" @click="hideNotification">&times;</button>
+        </div>
+        <div class="phone__header" :class="{ white: chosenScreen !== 'start'}">
+          <div class="phone__time">
+            {{currentTime}}
+          </div>
+          <div class="phone__utils">
+            <img src="./src/images/connection.svg" alt="">
+            <img src="./src/images/wifi.svg" alt="">
+            <img src="./src/images/battery.svg" alt="">
+          </div>
+        </div>
+
+        <div v-if="chosenScreen === 'start'" class="start_screen">
+          <div class="start_screen__corners"></div>
+
+          <!-- flex box start -->
+          <img src="./src/images/Logo.svg" alt="">
+
+          <div class="start_screen__content container">
+            <div class="start_screen__greeting">
+              <h1>Make successful <br> your day</h1>
+              <p>Make small somethings to get big gift <br> in your life</p>
+            </div>
+            <button class="btn btn__add" @click="goToTodos">Start</button>
+          </div>
+          <!-- flex box end -->
+
+        </div>
+
+        <div v-else class="todos_screen">
+          <div class="todos_screen__header">
+            <div class="todos_screen__back" @click="goToBack">
+              <img src="./src/images/back_arrow.svg" alt="back">
+              <span>Back</span>
+            </div>
+            <h2>{{screenName}}</h2>
+          </div>
+
+          <div v-if="chosenScreen === 'todos'" class="todos_screen__list">
+            <div class="todos container">
+              <ul class="todos__tabs">
+                <li v-for="tab in computedTabs" class="todos__tab" @click="selectTab(tab)" :class="{
+                    selected: selectedTab === tab.id
+                  }">
+                  <span>
+                    {{tab.name}}
+                  </span>
+                  <span>
+                    {{tab.counter}}
+                  </span>
+                </li>
+              </ul>
+
+              <ul class="todos__list">
+                <li v-for="todo in fileteredTodos" :key="todo.id" class="todos__item">
+                  <div @click="selectTodo(todo)">
+                    <div class="todos__title">
+                      {{todo.title}}
+                    </div>
+                    <div class="todos__description">
+                      {{todo.description}}
+                    </div>
+                    <div class="todos__date">
+                      {{todo.dateEnd}}
+                    </div>
+                  </div>
+                  <div class="todos__check">
+                    <input :id="todo.id" type="checkbox" v-model="todo.isCompleted">
+                    <label :for="todo.id"></label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="todos_screen__create_btn" @click="goToCreate">
+              <img src="./src/images/plus.svg" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div v-if="chosenScreen === 'create'" class="todos_screen__create">
+          <div class="process container">
+            <div class="process__img">
+              <img src="./src/images/logo_dark.svg" alt="logo dark">
+            </div>
+
+            <div class="input_box field_box">
+              <div class="field_box__title">Title *</div>
+              <input v-model="newTodo.title" class="input_box__input" type="text" placeholder="Enter title">
+            </div>
+
+            <div class="textarea_box field_box">
+              <div class="field_box__title">Description *</div>
+              <textarea v-model="newTodo.description" name="Description" id="Description"
+                placeholder="Enter description"></textarea>
+            </div>
+
+            <div class="field_box">
+              <div class="field_box__title">Date end *</div>
+              <vue-date-picker v-model="newTodo.dateEnd" format="dd MMM yyyy"
+                model-type="dd MMM yyyy"></vue-date-picker>
+            </div>
+
+
+
+            <button class="btn btn__add" @click="addTodo">
+              Add task
+            </button>
+
+            <button class="btn btn__cancel" @click="cancelTodo">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div v-if="chosenScreen === 'edit'" class="todos_screen__edit">
+          <div class="process container">
+            <div class="process__img">
+              <img src="./src/images/logo_dark.svg" alt="logo dark">
+            </div>
+
+            <div class="input_box field_box">
+              <div class="field_box__title">Title *</div>
+              <input v-model="selectedTodo.title" class="input_box__input" type="text" placeholder="Enter title">
+            </div>
+
+            <div class="textarea_box field_box">
+              <div class="field_box__title">Description *</div>
+              <textarea v-model="selectedTodo.description" name="Description" id="Description"
+                placeholder="Enter description"></textarea>
+            </div>
+
+            <div class="field_box">
+              <div class="field_box__title">Date end *</div>
+              <vue-date-picker v-model="selectedTodo.dateEnd" format="dd MMM yyyy"
+                model-type="dd MMM yyyy"></vue-date-picker>
+            </div>
+
+
+
+            <button class="btn btn__add" @click="editTodo">
+              Done
+            </button>
+
+            <button class="btn btn__cancel" @click="deleteTodo">
+              Delete
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+
 </html>
