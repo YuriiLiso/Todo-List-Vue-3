@@ -4,69 +4,69 @@
     "title": "Забрати дітей зі школи",
     "description": "Забрати дітей о 16: 00 зі школи та відвезти додому",
     "isCompleted": false,
-    "dateEnd": "2024-10-21"
+    "dateEnd": "21 Sep 2024"
   },
   {
     "id": 2,
     "title": "Купити продукти",
     "description": "Скласти список і купити овочі, м’ясо та хліб",
     "isCompleted": false,
-    "dateEnd": "2024-10-22"
+    "dateEnd": "12 Oct 2024"
   },
   {
     "id": 3,
     "title": "Заплатити за комунальні послуги",
     "description": "Оплатити рахунки за електрику та воду",
     "isCompleted": false,
-    "dateEnd": "2024-10-23"
+    "dateEnd": "30 Jul 2024"
   },
   {
     "id": 4,
     "title": "Приготувати вечерю",
     "description": "Приготувати курячі котлети з салатом",
     "isCompleted": false,
-    "dateEnd": "2024-10-21"
+    "dateEnd": "2 Feb 2024"
   },
   {
     "id": 5,
     "title": "Записатися до стоматолога",
     "description": "Зателефонувати і записатися на консультацію",
     "isCompleted": false,
-    "dateEnd": "2024-10-24"
+    "dateEnd": "14 Nov 2024"
   },
   {
     "id": 6,
     "title": "Сходити в тренажерний зал",
     "description": "Тренування на ноги та кардіо",
     "isCompleted": true,
-    "dateEnd": "2024-10-21"
+    "dateEnd": "20 Sep 2024"
   },
   {
     "id": 7,
     "title": "Прочитати 50 сторінок книги",
     "description": "Прочитати книгу 'Цифрова мінімізація' до 50 сторінки",
     "isCompleted": false,
-    "dateEnd": "2024-10-22"
+    "dateEnd": "23 Sep 2024"
   },
   {
     "id": 8,
     "title": "Погуляти з собакою",
     "description": "Вивести собаку на прогулянку на 30 хвилин",
     "isCompleted": true,
-    "dateEnd": "2024-10-21"
+    "dateEnd": "27 Sep 2024"
   },
   {
     "id": 9,
     "title": "Зробити презентацію для роботи",
     "description": "Підготувати презентацію для зустрічі з клієнтом",
     "isCompleted": false,
-    "dateEnd": "2024-10-25"
+    "dateEnd": "16 Sep 2024"
   },
   {
     "id": 10,
     "title": "Завершити домашнє завдання з Vue.js",
     "description": "Допрацювати проект і надіслати код інструктору",
     "isCompleted": false,
-    "dateEnd": "2024-10-22"
+    "dateEnd": "15 Dec 2024"
   }
 ]
