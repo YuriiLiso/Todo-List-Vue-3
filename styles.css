@@ -125,7 +125,7 @@ p {
     margin: 0 auto;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 660px;
+    max-height: 575px;
 }
 
 .list::-webkit-scrollbar {
