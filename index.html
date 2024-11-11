@@ -1,13 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo List</title>
+  <title>Todo App</title>
+  <link rel="icon" href="./img/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <h1>
-    Todo List on Vue
-  </h1>
+  <div id="app">
+    <!-- StartScreen -->
+    <div v-if="!isStarted && !isAddingTask && !isEditingTask" class="start-screen">
+      <img src="./img/Logo-white.png" alt="Logo" class="logo" />
+      <div class="start-screen__content">
+        <h1>Make successful your day</h1>
+        <p>Make small somethings to get big gift in your life</p>
+      </div>
+      <button @click="startApp" class="start-btn">Start</button>
+      <div class="start-screen--decoration decoration-1"></div>
+      <div class="start-screen--decoration decoration-2"></div>
+      <div class="start-screen--decoration decoration-3"></div>
+    </div>
+    <!-- HomeScreen -->
+    <div v-if="isStarted && !isAddingTask && !isEditingTask" class="home-screen">
+      <div class="header">
+        <button class="header__button" @click="goToStartScreen">
+          <span class="header__button--icon"></span>Back</button>
+        <h2 class="header__title">Task</h2>
+      </div>
+      <div>
+        <ul class="tabs_block list">
+          <li v-for="item in tabs" :key="item" @click="selectTab(item)" :class="{ 'selected': selectedTab === item }"
+            class="tab">
+            <!-- {{ item }} -->
+            <span v-if="item === 'All tasks'" class="tab-heading">
+              {{ item }} <span class="task-count">{{ allTasks }}</span>
+            </span>
+            <span v-else-if="item === 'Open'" class="tab-heading">
+              {{ item }} <span class="task-count">{{ openTasksCount }}</span>
+            </span>
+            <span v-else-if="item === 'Closed'" class="tab-heading">
+              {{ item }} <span class="task-count">{{ closedTasksCount }}</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div v-if="showTaskList">
+        <ul class="list-items list">
+          <li v-for="task in filteredTasks" :key="task.id" class="list-item">
+            <div @click="openEditForm(task)" class="list-item__details--wrapper">
+              <h2 class="list-item__title" :class="{ 'list-card__title--completed': task.isCompleted }">
+                {{ task.title }}
+              </h2>
+              <p class="list-item__description">{{ task.description }}</p>
+              <span class="list-card--divider"></span>
+              <p class="list-card__date">{{ task.dateEnd }}</p>
+            </div>
+            <input type="checkbox" class="list-card__checkbox" v-model="task.isCompleted" />
+          </li>
+        </ul>
+      </div>
+      <button @click="toggleAddTask" class="btn--add"></button>
+    </div>
+    <!-- AddTaskForm -->
+    <div v-if="isAddingTask" class="container">
+      <div class="header">
+        <button class="header__button" @click="goToHomeScreen">
+          <span class="header__button--icon"></span>Back</button>
+        <h2 class="header__title">Add task</h2>
+      </div>
+      <img src="./img/Logo.png" alt="Logo" class="logo-form" />
+      <form @submit.prevent="addTask" class="form form-container">
+        <div class="form__group">
+
+          <label>Title<span class="required">*</span><span v-if="validation.title" class="error-message">is
+              required</span></label>
+          <input v-model="title" type="text" placeholder="Enter title" />
+
+          <label>Description<span class="required">*</span><span v-if="validation.description" class="error-message">is
+              required</span></label>
+          <textarea v-model="description" type="text" placeholder="Enter description" maxlength="200"></textarea>
+          <span class="textarea-validation">{{ description.length }}/200 max characters</span>
+
+          <label>Date end<span class="required">*</span><span v-if="validation.dateEnd" class="error-message">is
+              required</span></label>
+          <vue-date-picker v-model="dateEnd" type="date" placeholder="Choose date"></vue-date-picker>
+
+        </div>
+        <div class="form__group-btn">
+          <button type="submit" class="form__button form__button--accent">
+            Create
+          </button>
+          <button @click="cancel" class="form__button">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <!-- EditTaskForm -->
+    <div v-if="isEditingTask" class="container">
+      <div class="header">
+        <button class="header__button" @click="goToHomeScreen">
+          <span class="header__button--icon"></span>Back</button>
+        <h2 class="header__title">Edit task</h2>
+      </div>
+      <img src="./img/Logo.png" alt="Logo" class="logo-form" />
+      <form @submit.prevent="editTask" class="form form-container">
+        <div class="form__group">
+
+          <label>Title<span class="required">*</span><span v-if="validation.title" class="error-message">is
+              required</span></label>
+          <input v-model="title" type="text" placeholder="Enter title" />
+
+          <label>Description<span class="required">*</span><span v-if="validation.description" class="error-message">is
+              required</span></label>
+          <textarea v-model="description" placeholder="Enter description" maxlength="200"></textarea>
+          <span class="textarea-validation">{{ description.length }}/200 max characters</span>
+
+          <label>Date end<span class="required">*</span><span v-if="validation.dateEnd" class="error-message">
+              is required</span></label>
+          <vue-date-picker v-model="dateEnd" type="date" placeholder="Choose date"></vue-date-picker>
+
+        </div>
+        <div class="form__group-btn">
+          <button type="submit" class="form__button form__button--accent">Done</button>
+          <button @click="deleteTask" @click="showAlert" class="form__button form__button--delete">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue@latest"></script>
+  <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>
