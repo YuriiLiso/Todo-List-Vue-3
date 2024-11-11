@@ -128,7 +128,7 @@ const app = Vue.createApp({
       if (task) {
         task.title = this.title;
         task.description = this.description;
-        task.dateEnd = this.dateEnd;
+        task.dateEnd = this.formatDate(this.dateEnd);
       }
       this.cancel();
     },
