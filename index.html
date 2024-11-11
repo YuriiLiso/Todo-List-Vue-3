@@ -121,7 +121,7 @@
           <textarea v-model="description" placeholder="Enter description" maxlength="200"></textarea>
           <span class="textarea-validation">{{ description.length }}/200 max characters</span>
 
-          <label>Date end<span class="required">*</span><span v-if="validation.dateEnd" class="error-message">Date end
+          <label>Date end<span class="required">*</span><span v-if="validation.dateEnd" class="error-message">
               is required</span></label>
           <vue-date-picker v-model="dateEnd" type="date" placeholder="Choose date"></vue-date-picker>
 
