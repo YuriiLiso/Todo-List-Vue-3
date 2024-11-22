@@ -46,8 +46,6 @@ Todo List
 
 • Відображення списку завдань з можливістю сортування по відкритим/закритим.
 
-• При кліці на чекбокс завдання відмічається як завершене. При повторному кліці завдання відмічається як відкрите. 
-
 • При кліці на завдання відкривається екран із редагуванням завдання, всі поля на екрані редагування мають бути передзаповенні даними із вибраного завдання.
 
 • Можливість додавання нового завдання через кнопку “плюс”.
@@ -105,11 +103,6 @@ Todo List
 ```js
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 ```
-* Використовуйте vue3datepicker через CDN:
-  https://vue3datepicker.com/installation/#browser
-  ```js
-  <script src="https://unpkg.com/vue@latest"></script>
-  <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
-  ```
+
 
 Масив рандомних todo знаходиться в data/todos.json
