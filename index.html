@@ -4,10 +4,259 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToDo List</title>
+  <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-  <h1>
-    Todo List on Vue
-  </h1>
+    <div id="app" class="program">
+      
+          <div v-if="showStartpage === 'Start'" class="program__startpage">
+           <div class="programStart">
+            <div class="program__head">
+              <ul class="program_topPage">
+                <li class="timecode">9:41</li>
+                <li><img src="/image/Levels.png" alt="symvols"></li>
+              </ul>
+            </div>
+            
+          <div class="program__logoconteiner">
+            
+            <div class="square nomer1"></div>
+            <div class="square nomer2"></div>
+            <div class="square nomer3"></div>
+            <img src="./image/Logo.png" alt="logo" class="logo"> 
+          </div>
+            </div>
+          <div class="program__start__text"> 
+            <h2 class="program__start__h2">Make successful  <br>your day</h2>
+            <h6 class="program__start__h6">Make small somethings to get big gift in your life</h6>
+          </div>
+          <button @click="goToList" class="program__start__Button">Start</button>
+
+          <div class="hooter"> <hr class="end__hr"></div>
+        </div>
+
+
+      <div v-if="showStartpage === 'TodoList' " >
+        <div class="program__head__Todolist">
+          <div>
+            <ul class="program_topPage page1">
+              <li class="timecode">9:41</li>
+              <li><img src="/image/Levels.png" alt="symvols"></li>
+            </ul>
+          </div>
+          <div class="program__head__Todolist__nav">
+            <button @click="goToStart" class="program__head__Todolist__button">{{buttonBack}}</button>
+            <span class="program__head__AddTask">Task</span>
+          </div>
+        </div>
+        <ul class="Todo__butons_List">
+       <li> <button @click="filterAll" class="Todo__butons"> All task <span class="Todo_count"> {{counterall}} </span></button></li>
+       <li><hr class="Todo_hr"></li>
+       <li> <button @click="filterClose" class="Todo__butons"> Closed <span class="Todo_count"> {{counterClosed}} </span></button></li>
+       <li><hr class="Todo_hr"></li>
+       <li> <button  @click="filterOpen" class="Todo__butons"> Open <span class="Todo_count"> {{counterOpen}} </span></button></li>
+      </ul>
+        <ul class="program__TodoList">
+          <li v-for="item in FilterToDos"   class="program__TodoList__element">
+            <div class="Todo__text">
+              <ul class="title" >
+            <div class="Todo__title" @click="goToEdit(item)" > {{item.title}}  
+            </div>
+            <input type="checkbox" v-model="item.isCompleted" class="Todo__check">
+          </ul >
+            <br>
+            <div class="Todo__description" @click="goToEdit(item)">
+            {{item.description}}
+          </div>
+            </div>
+            <hr>
+              <div class="Todo__date" @click="goToEdit(item)">
+              {{item.dateEnd}}
+            </div>
+          </li>
+
+        </ul>
+         
+        <button @click="goToAdd" class="program__addButton">+</button>
+        <div class="hooter"> <hr class="end__hr"></div>
+      </div>
+
+
+      <div v-if="showStartpage === 'Delet' " >
+        <div class="program__head__Todolist">
+          <div class="Todo__alert">
+            <ul class="program_topPage page1">
+              <li class="Todo_alertLi">Task deleted</li>
+              <li class="Todo_alertLi"><button @click="afterdelet" class="AlertButtom">x</button></li>
+            </ul>
+           </div>
+          <div>
+            <ul class="program_topPage">
+              <li class="timecode">9:41</li>
+              <li><img src="/image/Levels.png" alt="symvols"></li>
+            </ul>
+          </div>
+          <div class="program__head__Todolist__nav">
+            <button @click="goToStart" class="program__head__Todolist__button">{{buttonBack}}</button>
+            <span class="program__head__AddTask">Task</span>
+          </div>
+        </div>
+        <ul class="Todo__butons_List">
+       <li> <button @click="filterAll" class="Todo__butons"> All task <span class="Todo_count"> {{counterall}} </span></button></li>
+       <li><hr class="Todo_hr"></li>
+       <li> <button @click="filterClose" class="Todo__butons"> Closed <span class="Todo_count"> {{counterClosed}} </span></button></li>
+       <li><hr class="Todo_hr"></li>
+       <li> <button  @click="filterOpen" class="Todo__butons"> Open <span class="Todo_count"> {{counterOpen}} </span></button></li>
+      </ul>
+        <ul class="program__TodoList">
+          <li v-for="item in FilterToDos"   class="program__TodoList__element" >
+            <div class="Todo__text">
+              <ul class="title">
+            <div class="Todo__title" @click="goToEdit(item)" > {{item.title}}  
+            </div>
+            <input type="checkbox" v-model="item.isCompleted" class="Todo__check">
+          </ul >
+            <br>
+            <div class="Todo__description" @click="goToEdit(item)">
+            {{item.description}}
+          </div>
+            </div>
+            <hr>
+              <div class="Todo__date" @click="goToEdit(item)">
+              {{item.dateEnd}}
+            </div>
+          </li>
+
+        </ul>
+        
+        <button @click="goToAdd" class="program__addButton">+</button>
+        <div class="hooter"> <hr class="end__hr"></div>
+      </div>
+      
+
+      <div v-if="showStartpage === 'Add' ">
+        <div class="program__head__Todolist">
+          <div>
+            <ul class="program_topPage page1">
+              <li class="timecode">9:41</li>
+              <li><img src="/image/Levels.png" alt="symvols"></li>
+            </ul>
+          </div>
+          <div class="program__head__Todolist__nav">
+            <button @click="goToList" class="program__head__Todolist__button">{{buttonBack}}</button>
+            <span class="program__head__AddTask">Add task</span>
+          </div>
+        </div>
+          <img src="/image/logo_form.png" alt="logo form" class="logo_form">
+        <form @submit.prevent="addTodo" class="add_Form"> 
+          <span class="form__text">Title<span class="form__symvol">*</span></span>
+          <div>
+          <input 
+            type="text" 
+            placeholder="Enter title"
+            v-model="form.title" 
+            class="form__input__title"
+          />
+        </div>
+        <div class="form__input">
+          <span class="form__text ">Description<span class="form__symvol ">*</span></span>
+        </div>
+          <div>
+            <input 
+              type="text" 
+              placeholder="Enter description"
+              v-model="form.description" 
+              class="form__input__descrit"
+            />
+            <span class="afterDescriptText">0/500 max characters</span>
+          </div>
+          <div class="form__input">
+          <span class="form__text ">Date end<span class="form__symvol form__des">*</span></span>
+          </div>
+          <div>
+          <input 
+            type="date" 
+            placeholder="Choose date"
+            v-model="form.dateEnd" 
+            class="form__input__date "
+          />
+        </div>
+        <div class="form__buttons_div">
+          <button type="submit" class="form__buttons" >Create</button>
+          <button @click="goToList" class="form__buttons form__cencel">Cancel</button>
+        </div>
+        <div class="hooter"> <hr class="end__hr"></div>
+        </form>
+      
+       
+      </div>
+
+      <div v-if="showStartpage === 'Fixed' ">
+        <div class="program__head__Todolist">
+          <div>
+            <ul class="program_topPage page1">
+              <li class="timecode">9:41</li>
+              <li><img src="/image/Levels.png" alt="symvols"></li>
+            </ul>
+          </div>
+          <div class="program__head__Todolist__nav">
+            <button @click="goToList" class="program__head__Todolist__button">{{buttonBack}}</button>
+            <span class="program__head__AddTask">Edit task</span>
+          </div>
+        </div>
+          <img src="/image/logo_form.png" alt="logo form" class="logo_form">
+        
+        <form @submit.prevent   class="add_Form"> 
+          <span class="form__text">Title<span class="form__symvol">*</span></span>
+          <div>
+          <input 
+            type="text" 
+            placeholder="Enter title"
+            v-model="form.title" 
+            class="form__input__title"
+          />
+        </div>
+        <div class="form__input">
+          <span class="form__text ">Description<span class="form__symvol ">*</span></span>
+        </div>
+          <div>
+            <input 
+              type="text" 
+              placeholder="Enter description"
+              v-model="form.description" 
+              class="form__input__descrit"
+            />
+          </div>
+          <span class="afterDescriptText">0/500 max characters</span>
+          <div class="form__input">
+          <span class="form__text ">Date end<span class="form__symvol form__des">*</span></span>
+          </div>
+          <div>
+          <input 
+            type="date" 
+            placeholder="Choose date"
+            v-model="form.dateEnd" 
+            class="form__input__date "
+          />
+        </div>
+        <div class="form__buttons_div">
+          <button type="submit" class="form__buttons" @click="saveTodo">Done</button>
+          <button @click="deleteTodo" class="form__buttons form__delet">Delete</button>
+        </div>
+        <div class="hooter"> <hr class="end__hr"></div>
+        </form>
+      
+        
+      </div>
+
+      
+    
+      
+    </div>
+ 
+
+  <script src="app.js"></script>
 </body>
 </html>
