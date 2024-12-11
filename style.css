@@ -1,0 +1,470 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+}
+.program{
+    width: 393px;
+    height: 852px;
+    overflow-x: hidden; /* приховує горизонтальне переповнення */
+    overflow-y: scroll;
+   
+}
+.program__head{
+    display: flex;
+   
+}
+
+.program__startpage{
+    text-align: center;
+
+}
+
+.programStart{
+    position: relative;
+
+   
+}
+
+.program_topPage{
+    z-index: 100;
+    width: 393px;
+    height: 54px;
+    background-color: #51C7E2;
+}
+
+.page1{
+    background: white;
+}
+
+.square{
+   width: 540px;
+   height: 550px; 
+   position: absolute;
+   border-radius: 33px;
+
+   
+}
+
+.nomer1{
+    background: #1AB8DB; 
+    z-index: 3;
+    left: -70px;
+    top: -340px;
+    transform: rotate(30deg);
+}
+
+.nomer2{
+    background: #39C1DF; 
+    z-index: 2;
+    left: -70px;
+    top: -340px;
+    transform: rotate(45deg);
+}
+
+.nomer3{
+    background: #51C7E2; 
+    z-index: 1;
+    left: -80px;
+    top: -350px;
+    transform: rotate(60deg);
+}
+
+
+.logo{
+    z-index: 4;
+    position: absolute;
+    top: 46px;
+    left: 155px;
+}
+.program__logoconteiner{
+    position: relative;
+    
+  
+  
+}
+
+.program__start__text{
+    width: 361px;
+    height: 128px;
+    justify-content: center;
+    margin-left: 16px;
+    margin-top: 472px;
+}
+
+.program__start__h2{
+    font-family: Inter;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 38.73px;
+    text-align: center;
+    margin-left: 18.77px;
+
+    
+}
+
+.program__start__h6{
+font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+width: 305.84px;
+height: 38px;
+margin-top: 12px;
+margin-left: 27.58px;
+
+
+}
+
+.program__start__Button{
+    background-color: #00bcd4; /* Блакитний колір кнопки */
+    color: #fff; /* Білий текст */
+    width: 361px;
+    height: 50px;
+    padding: 14px 20px 14px 20px;
+    gap: 4px;
+    border-radius: 12px;
+    border: none;
+    font-family: SF Pro;
+    font-size: 17px;
+    font-weight: 590;
+    text-align: center; 
+    margin-top: 127.22px;
+}
+
+
+
+
+.program__head__Todolist{
+    margin-top: 10px;
+    height: 98px;
+    width: 393px;
+    
+}
+
+.hooter{
+    width: 393px;
+    height: 21px;
+    margin-top: 10px;
+    
+}
+.end__hr{
+width: 139px;
+border: 2.5px solid black;
+margin-left: 127px;
+margin-top: 8px;
+
+
+
+}
+
+.program__head__Todolist__nav{
+    height: 44px;
+    width: 100%;
+    display: inline;
+    text-align: center;
+}
+.program__head__Todolist__button{
+    color: #007AFF;
+font-family: SF Pro;
+font-size: 17px;
+font-weight: 400;
+background-color: #fff;
+border: none;
+margin-bottom: 0;
+margin-left: 0;
+
+}
+
+.program__TodoList{
+    width: 361px;
+}
+
+.program__TodoList__element{
+    width: 361px;
+    height: 129px;
+    gap:  12px;
+    text-align: left;
+    padding: 12px;
+    box-shadow: 0px 8px 16px 0px #0000000A;
+
+
+}
+
+.Todo__text{
+    width: 337px;
+    height: 64px;
+    gap: 8px;
+    
+
+
+}
+
+.Todo__title{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.78px;
+    opacity: 100%;
+    
+    
+
+
+}
+
+
+.title{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Todo__check{
+    appearance: none;
+    width: 20px;
+    height: 20px;
+   cursor: pointer;
+   border: 1px solid black;
+   border-radius: 50%;
+   
+}
+    input[type="checkbox"]:checked {
+    background-color: #007a9f; /* Колір заливки, коли обраний */
+    border-color: #007a9f; /* Колір рамки, коли обраний */
+    
+}
+
+.Todo__description{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    opacity: 60%;
+}
+
+.Todo__date{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    text-align: left;
+    opacity: 60%;
+    margin-top: 12px;
+   
+
+}
+
+.Todo__butons{
+    border: none;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.36px;
+    text-align: left;
+    background-color: #FFFFFF;
+
+
+}
+
+.program__addButton{
+   height: 62px;
+    width: 62px;
+    border-radius: 50%;
+    font-size: 33px;
+    border: none;
+    color: white;
+    background-color: #1AB8DB;
+    margin-left: 315px;
+
+
+
+}
+.Todo__butons_List{
+    display: flex;
+    height: 20px;
+    width: 290px;
+    align-items: center;
+    gap: 16px;
+    opacity: 60%;
+    margin-left: 16px;
+    
+}
+
+.Todo__butons:hover{
+    color: #1AB8DB;
+}
+
+.add_Form{
+    width: 361px;
+    height: 316px;
+    margin-left: 16.5px;
+    margin-top: 52px;
+}
+
+.logo_form{
+    width: 100px;
+    height: 100px;
+    margin-top: 52px;
+    margin-left: 146.5px;
+    
+}
+
+.form__text{
+font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 16.94px;
+text-align: left;
+
+}
+
+.form__symvol{
+    color: #FF544A;
+}
+
+.form__input__title{
+    width: 361px;
+    height: 46px;
+    border: 1px solid #1E212633;
+    border-radius: 8px;
+}
+
+.form__input__descrit{
+    width: 361px;
+    height: 100px;
+    border: 1px solid #1E212633;
+    border-radius: 8px;
+}
+.afterDescriptText{
+font-family: Inter;
+font-size: 12px;
+font-weight: 400;
+line-height: 14.52px;
+text-align: left;
+opacity: 60%;
+
+}
+
+.form__input__date{
+width: 361px;
+height: 44px;
+border: 1px solid #1E212633;
+border-radius: 8px;
+opacity: 60%;
+
+}
+
+.form__buttons{
+width: 361px;
+height: 50px;
+text-align: center;
+border: none;
+border-radius: 12px;
+background: var(--Fills-Tertiary, #7878801F);
+}
+
+.form__buttons:hover{
+    color: #FFFFFF;
+    background-color: #1AB8DB;
+}
+
+.form__buttons_div{
+    margin-top: 101px;
+    gap: 12px;
+}
+
+.form__cencel{
+    margin-top: 12px;
+}
+.program__head__AddTask{
+font-family: SF Pro;
+font-size: 17px;
+font-weight: 590;
+line-height: 22px;
+margin-left:  115px;
+
+}
+
+.form__input{
+    margin-top: 16px;
+}
+.timecode{
+    display: flex;
+    width: 141px;
+    height: 54px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.program_topPage{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.form__delet{
+    margin-top: 12px;
+    color: #FF544A;
+}
+
+.Todo__counter{
+    border: none;
+    border-radius: 50%;
+    background-color: #b04f4f;
+}
+
+.Todo_count{
+    width: 16px;
+    height: 16px;
+   
+    font-size: 12px;
+    border-radius: 50%;
+}
+
+.Todo_hr{
+    border: 1px solid black;
+    transform: rotate(90deg);
+    width: 12px;
+   
+}
+
+.Todo__alert{
+width: 358px;
+height: 41px;
+padding: 12px 16px 12px 16px;
+border-radius: 6px;
+box-shadow: 0px 4px 12px 0px #00000024;
+box-shadow: 3px 0px 0px 0px #F04111 inset;
+z-index: 1;
+position: fixed;
+background-color: #fff;
+ color: black;
+top: 716px;
+margin-left: 17px;
+margin-right: 17px;
+
+}
+
+.Todo_alertLi{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.94px;
+    letter-spacing: 0.04em;
+    text-align: left;
+     
+}
+
+.AlertButtom{
+    border: none;
+    background-color: #fff;
+    font-size: 18px;
+}
+
+.line-through {
+    text-decoration: line-through;
+  }
